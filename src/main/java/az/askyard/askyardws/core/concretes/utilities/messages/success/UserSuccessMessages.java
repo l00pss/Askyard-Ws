@@ -12,7 +12,9 @@ public enum UserSuccessMessages implements Messages {
     CONTAIN("Axtarılan sorğu üzrə bir sıra nəticələr"),
     START_WITH("Axtarılan sorğu üzrə bir sıra nəticələr"),
     DELETE("Hesabınız silindi"),
-    AUTH("Hesabınıza giriş edildi")
+    AUTH("Hesabınıza giriş edildi"),
+    FOLLOW("Istifadəçi indi izlənilir"),
+    UNFOLLOW("İstifadəçi indi izlənilmir")
     ;
     private final String value;
     UserSuccessMessages(String value) {

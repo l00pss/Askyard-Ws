@@ -3,6 +3,7 @@ package az.askyard.askyardws.controller.api;
 
 import az.askyard.askyardws.business.abstracts.UserService;
 import az.askyard.askyardws.core.annotations.CurrentUser;
+import az.askyard.askyardws.core.concretes.utilities.messages.success.UserSuccessMessages;
 import az.askyard.askyardws.dto.UserRegisterDTO;
 import az.askyard.askyardws.entities.concretes.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,19 @@ public class UserController {
     }
 
 
-    @GetMapping("/findAllFirends")
+    @GetMapping("/follow/{id}")
+    public ResponseEntity follow(@CurrentUser User user,@PathVariable Long id){
+        return new ResponseEntity(this.userService.follow(user,id),HttpStatus.OK);
+    }
+
+    @GetMapping("/unfollow/{id}")
+    public ResponseEntity unfollow(@PathVariable Long id){
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllFollow")
     public ResponseEntity findAllFriends(@CurrentUser User user){
-        return new ResponseEntity(this.userService.findAllFriends(user),HttpStatus.OK);
+        return new ResponseEntity(this.userService.findAllFollows(user),HttpStatus.OK);
     }
 
     @PostMapping("/register")

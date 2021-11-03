@@ -72,11 +72,11 @@ public class User implements UserDetails {
     private List<Post> posts;
 
     @ElementCollection
-    @CollectionTable(name="FriendsList",
+    @CollectionTable(name="FollowsList",
             joinColumns = @JoinColumn(name="userId"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name="friendId",nullable = false)
-    List<Long> friendsList  = new ArrayList<>();
+    @JoinColumn(name="followId",nullable = false)
+    List<Long> followsList  = new ArrayList<>();
 
     @Override @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     String updatePutPath = "/api/1.0/user/account/delete";
     String accountDeletePath = "/api/1.0/user/update";
     String findAllFirends = "/api/1.0/user/findAllFirends";
+    String follow = "/follow/{id}";
     UserAuthService userAuthService;
     PasswordEncoder passwordEncoder;
 
@@ -45,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,updatePutPath).authenticated()
                 .antMatchers(HttpMethod.DELETE,accountDeletePath).authenticated()
                 .antMatchers(HttpMethod.GET,findAllFirends).authenticated()
+                .antMatchers(HttpMethod.GET,follow).authenticated()
             .and()
             .authorizeRequests().anyRequest().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

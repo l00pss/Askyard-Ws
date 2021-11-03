@@ -3,7 +3,9 @@ package az.askyard.askyardws.business.concretes;
 import az.askyard.askyardws.business.abstracts.UserService;
 import az.askyard.askyardws.core.concretes.utilities.messages.success.UserSuccessMessages;
 import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
+import az.askyard.askyardws.core.concretes.utilities.result.Result;
 import az.askyard.askyardws.core.concretes.utilities.result.success.SuccessDataResult;
+import az.askyard.askyardws.core.concretes.utilities.result.success.SuccessResult;
 import az.askyard.askyardws.dataAccess.abstracts.UserRepository;
 import az.askyard.askyardws.dto.UserDTO;
 import az.askyard.askyardws.dto.UserRegisterDTO;
@@ -36,8 +38,22 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<List<UserDTO>> findAllFriends(User user) {
-        List<UserDTO> list = this.userRepository.findAllById(user.getFriendsList()).stream().map(UserDTO::new).collect(Collectors.toList());
+    public DataResult<List<UserDTO>> findAllFollows(User user) {
+        List<UserDTO> list = this.userRepository.findAllById(user.getFollowsList()).stream().map(UserDTO::new).collect(Collectors.toList());
         return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_BY_ID.getValue());
+    }
+
+    @Override
+    public Result follow(User user,Long id) {
+        if(!user.getFollowsList().contains(id)){
+            user.getFollowsList().add(id);
+            this.userRepository.save(user);
+        }
+        return new SuccessResult(UserSuccessMessages.FOLLOW.getValue());
+    }
+
+    @Override
+    public Result unFollow(User user,Long id) {
+        return new SuccessResult(UserSuccessMessages.FOLLOW.getValue());
     }
 }
