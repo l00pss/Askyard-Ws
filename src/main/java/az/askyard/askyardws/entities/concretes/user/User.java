@@ -2,15 +2,19 @@ package az.askyard.askyardws.entities.concretes.user;
 
 
 import az.askyard.askyardws.core.annotations.Unique;
+import az.askyard.askyardws.entities.concretes.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,13 +22,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @Table(name = "USERS")
 public class User implements UserDetails {
+
     @SequenceGenerator(name = "USER_GEN_SEQ",
             sequenceName = "USER_SEQ",
             allocationSize = 100,
             initialValue = 10
     )
 
-    @Id
+    @Id @JsonIgnore
     @GeneratedValue(generator = "USER_GEN_SEQ")
     private long userId;
 
@@ -51,48 +56,50 @@ public class User implements UserDetails {
     @Email @NotNull
     private String email;
 
-    @OneToOne(mappedBy = "ownerProfile",
+
+    private String currentProfileImage;
+
+    private String currentCoverImage;
+
+    private String aboutOwner;
+
+    @OneToMany(mappedBy = "authorOfPost",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    private Profile profileOfUser;
+            fetch = FetchType.LAZY)
+    private List<Post> posts;
 
-
-
-
-
-    @Override
+    @Override @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return AuthorityUtils.createAuthorityList("Role_user");
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
-    @Override
+    @Override @JsonIgnore
     public String getUsername() {
-        return null;
+        return userName;
     }
 
-    @Override
+    @Override @JsonIgnore
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
-    @Override
+    @Override @JsonIgnore
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
-    @Override
+    @Override @JsonIgnore
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
-    @Override
+    @Override @JsonIgnore
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

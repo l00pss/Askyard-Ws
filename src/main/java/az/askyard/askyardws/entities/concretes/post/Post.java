@@ -1,7 +1,6 @@
 package az.askyard.askyardws.entities.concretes.post;
 
 
-import az.askyard.askyardws.entities.concretes.user.Profile;
 import az.askyard.askyardws.entities.concretes.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +23,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idOfPost;
 
-    @ManyToOne(targetEntity = Profile.class)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userProfileId" ,nullable = false)
-    private Profile authorOfPost;
+    private User authorOfPost;
 
     private String contextOfPost;
 
