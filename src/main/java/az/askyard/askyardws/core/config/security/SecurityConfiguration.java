@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     String accountDeletePath = "/api/1.0/user/update";
     String findAllFirends = "/api/1.0/user/findAllFirends";
     String follow = "/follow/{id}";
+    String unfollow = "/unfollow/{id}";
     UserAuthService userAuthService;
     PasswordEncoder passwordEncoder;
 
@@ -47,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,accountDeletePath).authenticated()
                 .antMatchers(HttpMethod.GET,findAllFirends).authenticated()
                 .antMatchers(HttpMethod.GET,follow).authenticated()
+                .antMatchers(HttpMethod.GET,unfollow).authenticated()
             .and()
             .authorizeRequests().anyRequest().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

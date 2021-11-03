@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/unfollow/{id}")
-    public ResponseEntity unfollow(@PathVariable Long id){
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity unfollow(@CurrentUser User user,@PathVariable Long id){
+        return new ResponseEntity(this.userService.unFollow(user,id),HttpStatus.OK);
     }
 
     @GetMapping("/findAllFollow")

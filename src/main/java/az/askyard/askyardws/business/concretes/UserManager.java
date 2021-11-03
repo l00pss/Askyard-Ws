@@ -54,6 +54,8 @@ public class UserManager implements UserService {
 
     @Override
     public Result unFollow(User user,Long id) {
-        return new SuccessResult(UserSuccessMessages.FOLLOW.getValue());
+        user.getFollowsList().remove(id);
+        this.userRepository.save(user);
+        return new SuccessResult(UserSuccessMessages.UNFOLLOW.getValue());
     }
 }
