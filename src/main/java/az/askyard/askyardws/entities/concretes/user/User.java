@@ -1,6 +1,7 @@
 package az.askyard.askyardws.entities.concretes.user;
 
 
+import az.askyard.askyardws.core.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Collection;
 
 @Entity
@@ -26,8 +28,34 @@ public class User implements UserDetails {
     @GeneratedValue(generator = "USER_GEN_SEQ")
     private long userId;
 
+    @Column(name = "NAME_OF_USER")
+    @Size(min = 2,max = 30) @NotNull(message = "{askyard.validation.az.NotNull.message}")
+    private String firstName;
 
+    @Column(name = "LASTNAME_OF_USER")
+    @Size(min = 2,max = 30) @NotNull
+    private String lastName;
 
+    @Column(name = "NICKNAME_OF_USER",unique = true,updatable = false)
+    @Size(min = 4,max = 30) @NotNull
+    @Unique
+    private String userName;
+
+    @Column(name = "PASSWORD_OF_USER") @NotNull
+    @Size(min = 6)
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$")
+    private String password;
+
+    @Column(name = "EMAIL_OF_USER",unique = true)
+    @Size(min = 8,max = 35)
+    @Email @NotNull
+    private String email;
+
+    @OneToOne(mappedBy = "ownerProfile",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    private Profile profileOfUser;
 
 
 
