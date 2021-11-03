@@ -23,6 +23,7 @@ public class UserManager implements UserService {
         this.userRepository = userRepository;
     }
 
+
     @Override
     public DataResult<User> registerUser(UserRegisterDTO user) {
         return new SuccessDataResult<User>(this.userRepository.save(user.factory()), UserSuccessMessages.SAVE.getValue());
@@ -32,5 +33,11 @@ public class UserManager implements UserService {
     public DataResult<List<UserDTO>> findAll() {
         List<UserDTO> list = this.userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
         return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_ALL.getValue());
+    }
+
+    @Override
+    public DataResult<List<UserDTO>> findAllFriends(User user) {
+        List<UserDTO> list = this.userRepository.findAllById(user.getFriendsList()).stream().map(UserDTO::new).collect(Collectors.toList());
+        return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_BY_ID.getValue());
     }
 }

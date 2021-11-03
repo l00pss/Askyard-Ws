@@ -11,4 +11,5 @@ public interface UserService {
 
     DataResult<User> registerUser(UserRegisterDTO user);
     DataResult<List<UserDTO>> findAll();
+    DataResult<List<UserDTO>> findAllFriends(User user);
 }

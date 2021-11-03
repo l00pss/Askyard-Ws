@@ -20,8 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     String authPostPath = "/api/1.0/auth";
-    String updatePutPath = "/api/1.0/update";
-    String accountDeletePath = "/api/1.0/delete";
+    String updatePutPath = "/api/1.0/user/account/delete";
+    String accountDeletePath = "/api/1.0/user/update";
+    String findAllFirends = "/api/1.0/user/findAllFirends";
     UserAuthService userAuthService;
     PasswordEncoder passwordEncoder;
 
@@ -43,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, authPostPath).authenticated()
                 .antMatchers(HttpMethod.PUT,updatePutPath).authenticated()
                 .antMatchers(HttpMethod.DELETE,accountDeletePath).authenticated()
+                .antMatchers(HttpMethod.GET,findAllFirends).authenticated()
             .and()
             .authorizeRequests().anyRequest().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

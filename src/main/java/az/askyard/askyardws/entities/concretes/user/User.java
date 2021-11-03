@@ -7,12 +7,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -65,8 +68,15 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "authorOfPost",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private List<Post> posts;
+
+    @ElementCollection
+    @CollectionTable(name="FriendsList",
+            joinColumns = @JoinColumn(name="userId"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="friendId",nullable = false)
+    List<Long> friendsList  = new ArrayList<>();
 
     @Override @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -78,7 +88,7 @@ public class User implements UserDetails {
         return password;
     }
 
-    @Override @JsonIgnore
+    @Override
     public String getUsername() {
         return userName;
     }
