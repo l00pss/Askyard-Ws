@@ -3,7 +3,6 @@ package az.askyard.askyardws.controller.api;
 
 import az.askyard.askyardws.business.abstracts.UserService;
 import az.askyard.askyardws.core.annotations.CurrentUser;
-import az.askyard.askyardws.core.concretes.utilities.messages.success.UserSuccessMessages;
 import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
 import az.askyard.askyardws.core.concretes.utilities.result.Result;
 import az.askyard.askyardws.dto.UserDTO;
@@ -42,7 +41,7 @@ public class UserController<T> {
 
     @GetMapping("/unfollow/{id}")
     public ResponseEntity<Result> unfollow(@CurrentUser User user,@PathVariable Long id){
-        return new ResponseEntity<>(this.userService.unFollow(user,id),HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.unfollow(user,id),HttpStatus.OK);
     }
 
     @GetMapping("/findAllFollow")

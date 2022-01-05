@@ -26,18 +26,18 @@ public class UserManager implements UserService {
     }
 
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public DataResult<User> registerUser(UserRegisterDTO user) {
         return new SuccessDataResult<User>(this.userRepository.save(user.factory()), UserSuccessMessages.SAVE.getValue());
     }
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public DataResult<List<UserDTO>> findAll() {
         List<UserDTO> list = this.userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
         return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_ALL.getValue());
     }
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public DataResult<List<UserDTO>> findAllFollows(User user) {
         List<UserDTO> list = this.userRepository.findAllById(user.getFollowsList()).stream().map(UserDTO::new).collect(Collectors.toList());
         return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_BY_ID.getValue());
@@ -53,9 +53,15 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Result unFollow(User user,Long id) {
+    public Result unfollow(User user, Long id) {
         user.getFollowsList().remove(id);
         this.userRepository.save(user);
         return new SuccessResult(UserSuccessMessages.UNFOLLOW.getValue());
+    }
+
+    @Override
+    public DataResult<List<UserDTO>> findAllTest() {
+
+        return null;
     }
 }

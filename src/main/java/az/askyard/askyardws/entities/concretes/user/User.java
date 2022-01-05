@@ -20,10 +20,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "User.findSpecial",query = "select u from User u")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "USERS")
+
 public class User implements UserDetails {
 
     @SequenceGenerator(name = "USER_GEN_SEQ",
