@@ -30,6 +30,8 @@ import java.util.List;
 
 public class User implements UserDetails {
 
+
+
     @SequenceGenerator(name = "USER_GEN_SEQ",
             sequenceName = "USER_SEQ",
             allocationSize = 100,
@@ -116,4 +118,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
+
 }

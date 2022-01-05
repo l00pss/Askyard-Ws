@@ -60,7 +60,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<List<UserDTO>> findAllTest() {
+    public DataResult<List<UserDTO>> justTest() {
 
         return null;
     }

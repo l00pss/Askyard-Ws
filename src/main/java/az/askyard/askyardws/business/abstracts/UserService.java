@@ -16,6 +16,6 @@ public interface UserService {
     Result follow(User user,Long id);
     Result unfollow(User user, Long id);
 
-    DataResult<List<UserDTO>> findAllTest();
+    DataResult<List<UserDTO>> justTest();
 
 }
