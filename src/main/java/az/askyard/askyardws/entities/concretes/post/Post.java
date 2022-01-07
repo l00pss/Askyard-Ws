@@ -23,7 +23,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idOfPost;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(
+            targetEntity = User.class
+    )
     @JoinColumn(name = "userProfileId" ,nullable = false)
     private User authorOfPost;
 

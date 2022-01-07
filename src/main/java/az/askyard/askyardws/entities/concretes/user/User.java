@@ -47,22 +47,22 @@ public class User implements UserDetails {
     private String firstName;
 
     @Column(name = "LASTNAME_OF_USER")
-    @Size(min = 2,max = 30) @NotNull
+    @Size(min = 2,max = 30)@NotNull(message = "{askyard.validation.az.NotNull.message}")
     private String lastName;
 
-    @Column(name = "NICKNAME_OF_USER",unique = true,updatable = false)
-    @Size(min = 4,max = 30) @NotNull
+    @Column(name = "NICKNAME_OF_USER",updatable = false)
+    @Size(min = 4,max = 30) @NotNull(message = "{askyard.validation.az.NotNull.message}")
     @Unique
     private String userName;
 
-    @Column(name = "PASSWORD_OF_USER") @NotNull
-    @Size(min = 6)
+    @Column(name = "PASSWORD_OF_USER")@NotNull(message = "{askyard.validation.az.NotNull.message}")
+    @Size(min = 6,max = 25)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$")
     private String password;
 
     @Column(name = "EMAIL_OF_USER",unique = true)
     @Size(min = 8,max = 35)
-    @Email @NotNull
+    @Email @NotNull @Unique
     private String email;
 
 
@@ -72,14 +72,17 @@ public class User implements UserDetails {
 
     private String aboutOwner;
 
-    @OneToMany(mappedBy = "authorOfPost",
+    @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY
+    )
     private List<Post> posts;
 
     @ElementCollection
-    @CollectionTable(name="FollowsList",
-            joinColumns = @JoinColumn(name="userId"))
+    @CollectionTable(
+            name="FollowsList",
+            joinColumns = @JoinColumn(name="userId")
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="followId",nullable = false)
     List<Long> followsList  = new ArrayList<>();

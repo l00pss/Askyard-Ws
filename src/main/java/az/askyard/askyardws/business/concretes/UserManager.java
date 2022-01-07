@@ -27,8 +27,8 @@ public class UserManager implements UserService {
 
 
     @Override @SuppressWarnings("unchecked")
-    public DataResult<User> registerUser(UserRegisterDTO user) {
-        return new SuccessDataResult<User>(this.userRepository.save(user.factory()), UserSuccessMessages.SAVE.getValue());
+    public DataResult<User> registerUser(UserRegisterDTO userDto) {
+        return new SuccessDataResult<User>(this.userRepository.save(userDto.cloneToEntity()), UserSuccessMessages.REGISTER.getValue());
     }
 
     @Override @SuppressWarnings("unchecked")

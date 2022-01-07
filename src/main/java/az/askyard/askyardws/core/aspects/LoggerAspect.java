@@ -16,13 +16,14 @@ import java.time.Instant;
 @Aspect
 @Component
 public class LoggerAspect {
-    //private static final Logger LOGGER  = Logger.getLogger(UserManager.class.getName());
+    private static final Logger LOGGER  = Logger.getLogger(LoggerAspect.class.getName());
 
     @Around("@annotation(az.askyard.askyardws.core.annotations.Logger)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         Instant start = Instant.now();
         Object proceed = joinPoint.proceed();
         Instant stop = Instant.now();
+
         System.out.println(joinPoint.getSignature() + " executed in " + Duration.between(start,stop).toNanos() + "ms");
         return proceed;
     }

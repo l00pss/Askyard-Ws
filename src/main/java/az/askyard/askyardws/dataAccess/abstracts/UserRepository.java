@@ -12,13 +12,13 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserId(long userId);
-    @NotNull User save(User user);
+
+    @SuppressWarnings("unchecked")
+    @NotNull
+    User save(@NotNull User user);
 
     User findByUserName(String username);
 
     Page<User> findByUserNameNot(String username, Pageable pageable);
-
-
-
 
 }

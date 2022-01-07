@@ -6,7 +6,7 @@ import az.askyard.askyardws.core.concretes.utilities.messages.Messages;
  * @author Vugar Mammadli
  */
 public enum UserSuccessMessages implements Messages {
-    SAVE("İstifadəçi uğurla əlavə edildi"),
+    REGISTER("İstifadəçi uğurla əlavə edildi"),
     FIND_BY_ID("Axtarılan sorğu üzrə nəticə tapıldı"),
     FIND_ALL("Axtarılan sorğu üzrə bütün nəticələr"),
     CONTAIN("Axtarılan sorğu üzrə bir sıra nəticələr"),

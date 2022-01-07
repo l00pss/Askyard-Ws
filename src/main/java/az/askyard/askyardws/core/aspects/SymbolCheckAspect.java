@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 @Aspect
 @Component
 public class SymbolCheckAspect {
-    private static final Logger LOGGER  = Logger.getLogger(NotNullAspect.class.getName());
+    private static final Logger LOGGER  = Logger.getLogger(SymbolCheckAspect.class.getName());
 
     private final Character[] CHARACTERS = {'@','!','_','%',',','.','?','>','<','$','#',' '};
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private static Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     UserRepository userService;
 
@@ -29,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping(value = "/api/1.0/auth" ,produces  = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity<DataResult> handlerAuth(@CurrentUser User user){
+    ResponseEntity<DataResult<UserDTO>> handlerAuth(@CurrentUser User user){
         SuccessDataResult<UserDTO> dataResult =  new SuccessDataResult<UserDTO>(new UserDTO(user), UserSuccessMessages.AUTH.getValue());
-        return new ResponseEntity<>(dataResult, HttpStatus.ACCEPTED);
+        return new ResponseEntity<DataResult<UserDTO>>(dataResult, HttpStatus.ACCEPTED);
     }
 }

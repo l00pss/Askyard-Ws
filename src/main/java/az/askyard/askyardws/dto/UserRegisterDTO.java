@@ -1,21 +1,28 @@
 package az.askyard.askyardws.dto;
 
+import az.askyard.askyardws.entities.concretes.factory.AbstractUserEntityFactory;
+import az.askyard.askyardws.entities.concretes.factory.FactoryUserEntity;
 import az.askyard.askyardws.entities.concretes.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 
-@Data
+@Getter
 public class UserRegisterDTO {
+    @JsonIgnore
+    private final transient AbstractUserEntityFactory userEntityFactory = new FactoryUserEntity();
+
     private String userName;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
-    public User factory(){
-        User user = new User();
+    public User cloneToEntity(){
+        User user = userEntityFactory.factory();
         user.setUserName(this.userName);
         user.setFirstName(this.firstName);
         user.setLastName(this.lastName);
@@ -24,4 +31,5 @@ public class UserRegisterDTO {
         user.setPosts(new ArrayList<>());
         return user;
     }
+
 }
