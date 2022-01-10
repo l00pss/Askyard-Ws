@@ -62,8 +62,6 @@ public class ControllerAdvice {
         return new ErrorDataResult<>(exception.getMessage());
     }
 
-
-
     @ExceptionHandler(RequestRejectedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<String> handlerRequestRejectedException(RequestRejectedException exception){
