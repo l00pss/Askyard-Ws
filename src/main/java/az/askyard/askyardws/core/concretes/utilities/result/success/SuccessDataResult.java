@@ -5,7 +5,7 @@ import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
 /**
  * @author Vugar Mammadli
  */
-public class SuccessDataResult<T> extends DataResult {
+public class SuccessDataResult<T> extends DataResult<T> {
 
     public SuccessDataResult(T data,String message) {
         super(data, true, message);
@@ -22,5 +22,6 @@ public class SuccessDataResult<T> extends DataResult {
     public SuccessDataResult(){
         super(true,null);
     }
+
 
 }

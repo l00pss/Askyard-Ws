@@ -74,7 +74,7 @@ public class User implements UserDetails {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Post> posts;
 

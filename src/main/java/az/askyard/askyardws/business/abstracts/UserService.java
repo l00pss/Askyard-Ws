@@ -2,8 +2,8 @@ package az.askyard.askyardws.business.abstracts;
 
 import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
 import az.askyard.askyardws.core.concretes.utilities.result.Result;
-import az.askyard.askyardws.dto.UserDTO;
-import az.askyard.askyardws.dto.UserRegisterDTO;
+import az.askyard.askyardws.entities.concretes.dto.UserDTO;
+import az.askyard.askyardws.entities.concretes.dto.UserRegisterDTO;
 import az.askyard.askyardws.entities.concretes.user.User;
 
 import java.util.List;

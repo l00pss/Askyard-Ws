@@ -2,10 +2,10 @@ package az.askyard.askyardws.controller.auth;
 
 import az.askyard.askyardws.core.annotations.CurrentUser;
 import az.askyard.askyardws.core.concretes.utilities.messages.success.UserSuccessMessages;
-import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
+import az.askyard.askyardws.core.concretes.utilities.result.factory.AbstractResultFactory;
 import az.askyard.askyardws.core.concretes.utilities.result.success.SuccessDataResult;
-import az.askyard.askyardws.dataAccess.abstracts.UserRepository;
-import az.askyard.askyardws.dto.UserDTO;
+import az.askyard.askyardws.entities.concretes.dto.UserDTO;
+import az.askyard.askyardws.entities.concretes.factory.AbstractUserFactory;
 import az.askyard.askyardws.entities.concretes.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,18 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
-    UserRepository userService;
+    private final AbstractResultFactory<UserDTO> resultFactory;
+    private final AbstractUserFactory factory;
 
     @Autowired
-    public AuthController(UserRepository userService) {
-        this.userService = userService;
+    public AuthController(AbstractResultFactory<UserDTO> resultFactory, AbstractUserFactory userFactory) {
+        this.resultFactory=resultFactory;
+        this.factory = userFactory;
     }
 
     @PostMapping(value = "/api/1.0/auth" ,produces  = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity<DataResult<UserDTO>> handlerAuth(@CurrentUser User user){
-        SuccessDataResult<UserDTO> dataResult =  new SuccessDataResult<UserDTO>(new UserDTO(user), UserSuccessMessages.AUTH.getValue());
-        return new ResponseEntity<DataResult<UserDTO>>(dataResult, HttpStatus.ACCEPTED);
+    ResponseEntity<SuccessDataResult<UserDTO>> handlerAuth(@CurrentUser User user){
+        SuccessDataResult<UserDTO> dataResult = resultFactory.factorySuccessDataResult(factory.factoryUserDTO(user), UserSuccessMessages.AUTH.getValue());
+        LOGGER.info(String.valueOf(System.currentTimeMillis()));
+        return new ResponseEntity<>(dataResult, HttpStatus.ACCEPTED);
     }
+
 }

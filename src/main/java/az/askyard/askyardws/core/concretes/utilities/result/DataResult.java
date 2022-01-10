@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataResult<T> extends Result{
+public abstract class DataResult<T> extends Result{
 
     @JsonView(Views.Base.class)
     private T data;

@@ -1,21 +1,21 @@
-package az.askyard.askyardws.dto;
+package az.askyard.askyardws.entities.concretes.dto;
 
 import az.askyard.askyardws.entities.concretes.post.Post;
 import az.askyard.askyardws.entities.concretes.user.User;
-import lombok.Data;
+import lombok.Getter;
 
-import java.util.Date;
 import java.util.List;
 
-@Data
-public class UserDTO {
-    private String userName;
-    private String firstName;
-    private String lastName;
-    private String currentProfileImage;
-    private String currentCoverImage;
-    private String aboutOwner;
-    private List<Post> postList;
+@Getter
+public final class UserDTO {
+    private final String userName;
+    private final String firstName;
+    private final String lastName;
+    private final String currentProfileImage;
+    private final String currentCoverImage;
+    private final String aboutOwner;
+    private final List<Post> postList;
+
 
     public UserDTO(User user){
         this.userName = user.getUsername();
@@ -26,4 +26,5 @@ public class UserDTO {
         this.aboutOwner = user.getAboutOwner();
         this.postList = user.getPosts();
     }
+
 }
