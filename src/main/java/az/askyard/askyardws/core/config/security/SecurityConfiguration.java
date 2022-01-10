@@ -1,5 +1,6 @@
 package az.askyard.askyardws.core.config.security;
 
+import az.askyard.askyardws.core.config.patterns.RequestAuthPattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,10 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-
-    UserAuthService userAuthService;
-    PasswordEncoder passwordEncoder;
+    private UserAuthService userAuthService;
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
@@ -33,10 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-        http.httpBasic().authenticationEntryPoint(new AuthEntryPoint()); // Pop up ekrani gorunmemesi ucun
-
+        http.csrf().disable(); // Gorulmeyen headerleri baglamaq ucun
+        http.httpBasic().authenticationEntryPoint(new AuthEntryPoint()); // Browser terefde Pop up ekrani gorunmemesi ucun
         http
             .authorizeRequests()
                 .antMatchers(HttpMethod.POST, RequestAuthPattern.AUTH.getPattern()).authenticated()
@@ -55,7 +52,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userAuthService).passwordEncoder(passwordEncoder);
     }
-
-
 
 }

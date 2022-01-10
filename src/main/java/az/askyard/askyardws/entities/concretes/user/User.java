@@ -18,6 +18,7 @@ import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -29,8 +30,6 @@ import java.util.List;
 @Table(name = "USERS")
 
 public class User implements UserDetails {
-
-
 
     @SequenceGenerator(name = "USER_GEN_SEQ",
             sequenceName = "USER_SEQ",
@@ -87,10 +86,6 @@ public class User implements UserDetails {
     @JoinColumn(name="followId",nullable = false)
     List<Long> followsList  = new ArrayList<>();
 
-    @Override @JsonIgnore
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("Role_user");
-    }
 
     @Override
     public String getPassword() {
@@ -100,6 +95,11 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return userName;
+    }
+
+    @Override @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return AuthorityUtils.createAuthorityList("Role_User");
     }
 
     @Override @JsonIgnore
@@ -123,6 +123,16 @@ public class User implements UserDetails {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId && userName.equals(user.userName) && email.equals(user.email);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userName, email);
+    }
 }
