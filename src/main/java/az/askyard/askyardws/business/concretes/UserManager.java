@@ -40,7 +40,7 @@ public class UserManager implements UserService {
     @Override @SuppressWarnings("unchecked")
     public DataResult<List<UserDTO>> findAllFollows(User user) {
         List<UserDTO> list = this.userRepository.findAllById(user.getFollowsList()).stream().map(UserDTO::new).collect(Collectors.toList());
-        return new SuccessDataResult<List<UserDTO>>(list,UserSuccessMessages.FIND_BY_ID.getValue());
+        return new SuccessDataResult<>(list,UserSuccessMessages.FIND_BY_ID.getValue());
     }
 
     @Override
@@ -54,14 +54,11 @@ public class UserManager implements UserService {
 
     @Override
     public Result unfollow(User user, Long id) {
-        user.getFollowsList().remove(id);
-        this.userRepository.save(user);
+        if(user.getFollowsList().contains(id)){
+            user.getFollowsList().remove(id);
+            this.userRepository.save(user);
+        }
         return new SuccessResult(UserSuccessMessages.UNFOLLOW.getValue());
     }
 
-    @Override
-    public DataResult<List<UserDTO>> justTest() {
-
-        return null;
-    }
 }

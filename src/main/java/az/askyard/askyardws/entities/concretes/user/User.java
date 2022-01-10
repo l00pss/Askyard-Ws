@@ -64,6 +64,9 @@ public class User implements UserDetails {
     @Email @NotNull @Unique
     private String email;
 
+    private boolean isOnline = false;
+
+    private boolean accountIsActive = true;
 
     private String currentProfileImage;
 

@@ -1,5 +1,6 @@
 package az.askyard.askyardws.entities.concretes.factory;
 
+import az.askyard.askyardws.entities.concretes.dto.UserAccount;
 import az.askyard.askyardws.entities.concretes.dto.UserDTO;
 import az.askyard.askyardws.entities.concretes.user.User;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,25 @@ import org.springframework.stereotype.Component;
 public class FactoryUser implements AbstractUserFactory {
     private static volatile User user = null;
     private static volatile UserDTO userDTO = null;
+    private static volatile UserAccount account = null;
 
     @Override
     public User factoryUser() {
         if (user==null){
             synchronized (FactoryUser.class){
                 if (user==null){
+                    user = new User();
+                }
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User factoryUser(UserAccount account) {
+        if (account==null){
+            synchronized (FactoryUser.class){
+                if (account==null){
                     user = new User();
                 }
             }
@@ -32,4 +46,6 @@ public class FactoryUser implements AbstractUserFactory {
         }
         return userDTO;
     }
+
+
 }

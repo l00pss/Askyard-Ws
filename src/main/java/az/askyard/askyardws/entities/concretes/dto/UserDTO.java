@@ -14,7 +14,6 @@ public final class UserDTO {
     private final String currentProfileImage;
     private final String currentCoverImage;
     private final String aboutOwner;
-    private final List<Post> postList;
 
 
     public UserDTO(User user){
@@ -24,7 +23,6 @@ public final class UserDTO {
         this.currentCoverImage = user.getCurrentCoverImage();
         this.currentProfileImage = user.getCurrentProfileImage();
         this.aboutOwner = user.getAboutOwner();
-        this.postList = user.getPosts();
     }
 
 }

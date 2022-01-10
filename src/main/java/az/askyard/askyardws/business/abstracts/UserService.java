@@ -11,11 +11,14 @@ import java.util.List;
 public interface UserService {
 
     DataResult<User> registerUser(UserRegisterDTO user);
+
     DataResult<List<UserDTO>> findAll();
+
     DataResult<List<UserDTO>> findAllFollows(User user);
+
     Result follow(User user,Long id);
+
     Result unfollow(User user, Long id);
 
-    DataResult<List<UserDTO>> justTest();
 
 }
