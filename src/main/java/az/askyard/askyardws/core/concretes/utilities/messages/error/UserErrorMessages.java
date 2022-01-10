@@ -9,7 +9,8 @@ public enum UserErrorMessages implements Messages {
     NULL_VALUE("Boş dəyər keçilə bilməz"),
     INVALID_CHARACTER("Icazə verilməyən sinvol istifadəsi"),
     UNAUTH("Giriş münkün olmadı."),
-    USER_NOT_FOUND("Qeyd olunan sorğu üzrə istifadəçi tapılmadı");
+    BAD_REQUEST("Please try see Request`s URI"),
+    USER_NOT_FOUND("İstifadəçi adınız və ya şifrəniz səhvdir");
 
 
 

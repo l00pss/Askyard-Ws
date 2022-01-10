@@ -5,6 +5,8 @@ import az.askyard.askyardws.core.concretes.utilities.result.error.ErrorResult;
 import az.askyard.askyardws.core.concretes.utilities.result.success.SuccessDataResult;
 import az.askyard.askyardws.core.concretes.utilities.result.success.SuccessResult;
 
+import java.util.Date;
+
 
 public abstract class AbstractResultFactory<T> {
 
@@ -14,5 +16,9 @@ public abstract class AbstractResultFactory<T> {
 
     public abstract SuccessDataResult<T> factorySuccessDataResult(T data,String message);
 
+
+    public abstract ErrorDataResult<T> factoryErrorDataResult( String message);
+
     public abstract ErrorDataResult<T> factoryErrorDataResult(T data, String message);
+
 }

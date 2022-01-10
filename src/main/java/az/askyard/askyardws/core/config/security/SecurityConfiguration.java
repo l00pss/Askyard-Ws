@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,RequestAuthPattern.UNFOLLOW.getPattern()).authenticated()
             .and()
             .authorizeRequests().anyRequest().permitAll();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//Sesion istehsalini dayandirir
     }
 
 

@@ -1,6 +1,7 @@
 package az.askyard.askyardws.core.concretes.utilities.result.error;
 
 import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 
 public class ErrorDataResult<T> extends DataResult {
     public ErrorDataResult(T data,String message) {
