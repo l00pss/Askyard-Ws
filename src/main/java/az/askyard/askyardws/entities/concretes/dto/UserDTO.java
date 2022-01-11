@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 public final class UserDTO {
+    private final long id;
     private final String userName;
     private final String firstName;
     private final String lastName;
@@ -17,6 +18,7 @@ public final class UserDTO {
 
 
     public UserDTO(User user){
+        this.id = user.getUserId();
         this.userName = user.getUsername();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
