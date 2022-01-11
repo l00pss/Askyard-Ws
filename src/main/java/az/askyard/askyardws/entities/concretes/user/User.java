@@ -66,7 +66,9 @@ public class User implements UserDetails {
 
     private boolean isOnline = false;
 
-    private boolean accountIsActive = true;
+    private boolean isFrozen = false;
+
+    private boolean isBlocked= false;
 
     private String currentProfileImage;
 

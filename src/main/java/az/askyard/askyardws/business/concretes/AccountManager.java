@@ -39,8 +39,8 @@ public class AccountManager implements AccountService {
 
     @Override
     public Result frozenAccount(User currentUser) {
-        if(currentUser.isAccountIsActive())
-            currentUser.setAccountIsActive(false);
+        if(currentUser.isFrozen())
+            currentUser.setFrozen(false);
         this.userRepository.save(currentUser);
         return factory.factorySuccessResult(UserSuccessMessages.FROZEN.getValue());
     }
@@ -48,8 +48,8 @@ public class AccountManager implements AccountService {
 
     @Override
     public Result unFrozenAccount(User currentUser) {
-        if(!currentUser.isAccountIsActive())
-            currentUser.setAccountIsActive(true);
+        if(!currentUser.isFrozen())
+            currentUser.setFrozen(true);
         this.userRepository.save(currentUser);
         return factory.factorySuccessResult(UserSuccessMessages.UNFROZEN.getValue());
     }

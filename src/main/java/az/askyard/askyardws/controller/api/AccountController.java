@@ -33,4 +33,14 @@ public class AccountController<T> {
     public ResponseEntity<Result> updateAccount(@CurrentUser User currentUser, UserAccount account){
         return new ResponseEntity<>(this.accountService.updateAccount(currentUser, account),HttpStatus.OK);
     }
+
+    @PutMapping("/frozen")
+    public ResponseEntity<Result> frozenAccount(@CurrentUser User currentUser){
+        return new ResponseEntity<>(this.accountService.frozenAccount(currentUser),HttpStatus.OK);
+    }
+
+    @PutMapping("/unfrozen")
+    public ResponseEntity<Result> unfrozenAccount(@CurrentUser User currentUser){
+        return new ResponseEntity<>(this.accountService.unFrozenAccount(currentUser),HttpStatus.OK);
+    }
 }

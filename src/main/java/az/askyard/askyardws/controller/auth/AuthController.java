@@ -33,11 +33,11 @@ public class AuthController {
     @PostMapping(value = "/api/1.0/auth" ,produces  = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<SuccessDataResult<UserDTO>> handlerAuth(@CurrentUser User user){
         SuccessDataResult<UserDTO> dataResult = null;
-        if(user.isAccountIsActive()==true){
+        if(!user.isFrozen()){
             dataResult = resultFactory.factorySuccessDataResult(factory.factoryUserDTO(user), UserSuccessMessages.AUTH.getValue());
-            user.setAccountIsActive(true);
         }else {
-            //dataResult = resultFactory.factorySuccessDataResult(factory.factoryUserDTO(user), UserSuccessMessages.AUTH.getValue());
+            user.setFrozen(true);
+            dataResult = resultFactory.factorySuccessDataResult(factory.factoryUserDTO(user), UserSuccessMessages.UNFROZEN.getValue());
         }
         return new ResponseEntity<>(dataResult, HttpStatus.ACCEPTED);
     }

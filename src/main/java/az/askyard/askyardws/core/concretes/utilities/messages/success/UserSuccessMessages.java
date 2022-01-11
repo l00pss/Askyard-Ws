@@ -14,10 +14,10 @@ public enum UserSuccessMessages implements Messages {
     DELETE("Hesabınız silindi"),
     UPDATE("Dəyişikliklər icra olundu"),
     AUTH("Hesabınıza giriş edildi"),
+    UNFROZEN("Hesabınız yenidən aktiv edildi"),
     FOLLOW("Istifadəçi indi izlənilir"),
     UNFOLLOW("İstifadəçi indi izlənilmir"),
     FROZEN("Hesabınız dondurulmuşdur"),
-    UNFROZEN("Hesabınız dondurulmuşdur")
     ;
     private final String value;
     UserSuccessMessages(String value) {
