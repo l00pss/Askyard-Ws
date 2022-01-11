@@ -1,7 +1,7 @@
 package az.askyard.askyardws.business.concretes;
 
 import az.askyard.askyardws.business.abstracts.DashboardService;
-import az.askyard.askyardws.business.abstracts.UserService;
+import az.askyard.askyardws.core.concretes.utilities.messages.success.DashboardSuccessMessages;
 import az.askyard.askyardws.core.concretes.utilities.messages.success.PostSuccessMessages;
 import az.askyard.askyardws.core.concretes.utilities.result.DataResult;
 import az.askyard.askyardws.core.concretes.utilities.result.Result;
@@ -68,8 +68,10 @@ public class DashboardManager implements DashboardService {
     @Override
     public DataResult<List<UserDashboard>> getDashboard(User user) {
         List<UserDashboard> userDashboards = new ArrayList<>();
-
-        return new SuccessDataResult<List<UserDashboard>>();
+        for(Long l:user.getFollowsList()){
+            userDashboards.add(new UserDashboard(this.userRepository.findByUserId(l)));
+        }
+        return new SuccessDataResult<List<UserDashboard>>(userDashboards, DashboardSuccessMessages.DASH.getValue());
     }
 
 

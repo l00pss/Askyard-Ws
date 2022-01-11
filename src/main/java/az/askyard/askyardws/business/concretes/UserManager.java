@@ -13,6 +13,8 @@ import az.askyard.askyardws.entities.concretes.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,12 @@ public class UserManager implements UserService {
         if(!user.getFollowsList().contains(id)){
             user.getFollowsList().add(id);
             this.userRepository.save(user);
+
+            User followedUser  = this.userRepository.findByUserId(id);
+            followedUser.setFollowedThem( new ArrayList<Long>(
+                    Arrays.asList(user.getUserId()))
+            );
+            this.userRepository.save(followedUser);
         }
         return new SuccessResult(UserSuccessMessages.FOLLOW.getValue());
     }
@@ -57,6 +65,10 @@ public class UserManager implements UserService {
         if(user.getFollowsList().contains(id)){
             user.getFollowsList().remove(id);
             this.userRepository.save(user);
+
+            User followedUser = this.userRepository.findByUserId(id);
+            followedUser.getFollowedThem().remove(user.getUserId());
+            this.userRepository.save(followedUser);
         }
         return new SuccessResult(UserSuccessMessages.UNFOLLOW.getValue());
     }
