@@ -1,6 +1,7 @@
 package az.askyard.askyardws.entities.concretes.post;
 
 
+import az.askyard.askyardws.entities.concretes.Report;
 import az.askyard.askyardws.entities.concretes.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class Post {
     @JoinColumn(name = "userProfileId" ,nullable = false)
     private User authorOfPost;
 
+    @Column(name = "CONTEXT")
     private String contextOfPost;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -37,10 +39,16 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDateOfPost;
 
-//    @ElementCollection
-//    @CollectionTable(name = "LIKED_LIST_OF_POST",joinColumns = @JoinColumn(name = "ID_OF_POST"))
-//    private Set<User> likedUserList = new TreeSet<>();
-//    private List<String> photosOfPost = new ArrayList<>();
+    @Column(name = "REPORT")
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Report> report;
+
+    @ElementCollection
+    @CollectionTable(name = "LIKED_LIST_OF_POST",joinColumns = @JoinColumn(name = "ID_OF_POST"))
+    private Set<Long> likedUserList = new TreeSet<>();
+
+
+    //private List<String> photosOfPost = new ArrayList<>();
 
 
 }

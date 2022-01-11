@@ -92,6 +92,15 @@ public class User implements UserDetails {
     List<Long> followsList  = new ArrayList<>();
 
 
+    @ElementCollection
+    @CollectionTable(
+            name="Followed",
+            joinColumns = @JoinColumn(name="userId")
+    )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="folloewedId",nullable = false)
+    List<Long> followedThem  = new ArrayList<>();
+
     @Override
     public String getPassword() {
         return password;

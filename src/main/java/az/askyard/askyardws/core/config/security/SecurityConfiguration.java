@@ -37,11 +37,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers(HttpMethod.POST, RequestAuthPattern.AUTH.getPattern()).authenticated()
-                .antMatchers(HttpMethod.PUT,RequestAuthPattern.ACCOUNT_DELETE.getPattern()).authenticated()
-                .antMatchers(HttpMethod.DELETE,RequestAuthPattern.ACCOUNT_UPDATE.getPattern()).authenticated()
+                .antMatchers(HttpMethod.DELETE,RequestAuthPattern.ACCOUNT_DELETE.getPattern()).authenticated()
+                .antMatchers(HttpMethod.PUT,RequestAuthPattern.ACCOUNT_UPDATE.getPattern()).authenticated()
                 .antMatchers(HttpMethod.GET,RequestAuthPattern.GET_ALL_FOLLOWERS.getPattern()).authenticated()
                 .antMatchers(HttpMethod.GET,RequestAuthPattern.FOLLOW.getPattern()).authenticated()
-                .antMatchers(HttpMethod.GET,RequestAuthPattern.UNFOLLOW.getPattern()).authenticated()
+
+                .antMatchers(HttpMethod.PUT,RequestAuthPattern.FROZEN.getPattern()).authenticated()
+                .antMatchers(HttpMethod.PUT,RequestAuthPattern.UNFROZEN.getPattern()).authenticated()
+
+                .antMatchers(HttpMethod.PUT,RequestAuthPattern.UNFROZEN.getPattern()).authenticated()
+                .antMatchers(HttpMethod.PUT,RequestAuthPattern.UNFROZEN.getPattern()).authenticated()
             .and()
             .authorizeRequests().anyRequest().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//Sesion istehsalini dayandirir

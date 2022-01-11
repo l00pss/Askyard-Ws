@@ -50,7 +50,7 @@ public class UserController<T> {
         return new ResponseEntity<>(this.userService.unfollow(user,id),HttpStatus.OK);
     }
 
-    @GetMapping("/findAllFollow")
+    @GetMapping("/findAllFollower")
     public ResponseEntity<DataResult<List<UserDTO>>> findAllFriends(@CurrentUser User user){
         return new ResponseEntity<>(this.userService.findAllFollows(user),HttpStatus.OK);
     }
